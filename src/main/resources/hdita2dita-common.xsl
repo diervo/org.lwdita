@@ -55,9 +55,11 @@
           <xsl:apply-templates select="$shortdesc/node()"/>
         </shortdesc>
       </xsl:if>
-      <body class="- topic/body ">
-        <xsl:apply-templates select="$contents except $shortdesc"/>
-      </body>
+      <xsl:if test="$contents except $shortdesc">
+        <body class="- topic/body ">
+          <xsl:apply-templates select="$contents except $shortdesc"/>
+        </body>
+      </xsl:if>
     </xsl:element>
   </xsl:template>
 
@@ -259,9 +261,19 @@
   <xsl:template match="img">
     <image>
       <xsl:apply-templates select="." mode="class"/>
-      <xsl:apply-templates select="@* | node()"/>
+      <xsl:apply-templates select="@* except @alt"/>
+      <xsl:apply-templates select="." mode="image-placement"/>
+      <xsl:if test="@alt">
+        <alt class="- topic/alt ">
+          <xsl:value-of select="@alt"/>
+        </alt>
+      </xsl:if>
     </image>
   </xsl:template>
+  <xsl:template match="article/img | section/img" mode="image-placement">
+    <xsl:attribute name="placement">break</xsl:attribute>
+  </xsl:template>
+  <xsl:template match="node()" mode="image-placement" priority="-10"/>
   <xsl:template match="img" mode="class">
     <xsl:attribute name="class">- topic/image </xsl:attribute>
   </xsl:template>
@@ -385,6 +397,10 @@
     <xref>
       <xsl:apply-templates select="." mode="class"/>
       <xsl:choose>
+        <xsl:when test="starts-with(@href, 'mailto')">
+          <xsl:attribute name="format">email</xsl:attribute>
+          <xsl:attribute name="scope">external</xsl:attribute>
+        </xsl:when>
         <xsl:when test="@type">
           <xsl:attribute name="format" select="@type"/>
         </xsl:when>

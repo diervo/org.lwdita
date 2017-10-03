@@ -27,7 +27,7 @@
     <xsl:apply-templates select="." mode="reference"/>
   </xsl:template>
   <xsl:template match="*" mode="dispatch">
-    <xsl:apply-templates select="."/>
+    <xsl:apply-templates select="." mode="copy"/>
   </xsl:template>
 
   <!-- reference -->
@@ -152,7 +152,7 @@
 
   <!-- common -->
   
-  <xsl:template match="topic/@outputclass" mode="#all">
+  <xsl:template match="topic/@outputclass" mode="concept task reference">
     <xsl:variable name="type" as="xs:string?" select="tokenize(., '\s+')[. = ('concept', 'task', 'reference')]"/>
     <xsl:choose>
       <xsl:when test="exists($type)">
@@ -169,7 +169,7 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="@* | node()" priority="-10" mode="#all">
+  <xsl:template match="@* | node()" priority="-10" mode="concept task reference copy">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()" mode="#current"/>
     </xsl:copy>

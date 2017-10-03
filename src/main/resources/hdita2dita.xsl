@@ -11,6 +11,7 @@
   <xsl:output indent="yes"></xsl:output>
 
   <xsl:template match="/">
+    <xsl:message>hdita</xsl:message>
     <xsl:apply-templates select="html"/>
   </xsl:template>
 

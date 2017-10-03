@@ -178,6 +178,7 @@ public class MarkdownReaderTest extends AbstractReaderTest {
         run("comment.md");
     }
 
+    @Ignore
     @Test
     public void testHtml() throws Exception {
         run("html.md");

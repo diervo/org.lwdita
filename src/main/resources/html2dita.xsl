@@ -7,11 +7,17 @@
                 exclude-result-prefixes="xs">
 
   <xsl:import href="classpath:///hdita2dita-common.xsl"/>
+  <xsl:import href="classpath:///specialize.xsl"/>
 
   <xsl:output indent="yes"></xsl:output>
 
   <xsl:template match="/">
-    <xsl:apply-templates select="html"/>
+    <xsl:variable name="dita" as="element()">
+      <xsl:message>html</xsl:message>
+      <xsl:apply-templates select="html"/>
+    </xsl:variable>
+    <xsl:message>specialize</xsl:message>
+    <xsl:apply-templates select="$dita" mode="dispatch"/>
   </xsl:template>
 
   <xsl:template match="html">
