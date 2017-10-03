@@ -1,5 +1,6 @@
 package com.elovirta.dita.html;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.XMLReader;
 
@@ -23,6 +24,12 @@ public class HDitaReaderTest extends HtmlReaderTest {
     @Test
     public void testHdita() throws Exception {
         run("hdita.html");
+    }
+
+    @Ignore
+    @Test
+    public void testMultipleTopLevelSpecialized() throws Exception {
+        //run("multiple_top_level_specialized.html");
     }
 
 }

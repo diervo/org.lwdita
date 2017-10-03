@@ -95,11 +95,11 @@ public class HtmlReaderTest extends AbstractReaderTest {
         run("link.html");
     }
     @Test
-    public void testmultiple_top_level() throws Exception {
+    public void testMultipleTopLevel() throws Exception {
         run("multiple_top_level.html");
     }
     @Test
-    public void testmultiple_top_level_specialized() throws Exception {
+    public void testMultipleTopLevelSpecialized() throws Exception {
         run("multiple_top_level_specialized.html");
     }
     @Test
@@ -131,13 +131,14 @@ public class HtmlReaderTest extends AbstractReaderTest {
         run("table.html");
     }
     @Test
-    public void testtask() throws Exception {
+    public void testTask() throws Exception {
         run("task.html");
     }
     @Test
-    public void testtaskOneStep() throws Exception {
+    public void testTaskOneStep() throws Exception {
         run("taskOneStep.html");
     }
+    @Ignore
     @Test
     public void testtopic() throws Exception {
         run("topic.html");
