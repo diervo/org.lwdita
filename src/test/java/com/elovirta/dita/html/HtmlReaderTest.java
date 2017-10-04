@@ -22,7 +22,6 @@ public class HtmlReaderTest extends AbstractReaderTest {
         return "dita/";
     }
 
-
     @Ignore("non-LwDITA assumes nested topics which are not supported")
     @Test
     public void test() throws Exception {
@@ -94,6 +93,7 @@ public class HtmlReaderTest extends AbstractReaderTest {
     public void testlink() throws Exception {
         run("link.html");
     }
+    @Ignore
     @Test
     public void testMultipleTopLevel() throws Exception {
         run("multiple_top_level.html");
@@ -138,15 +138,15 @@ public class HtmlReaderTest extends AbstractReaderTest {
     public void testTaskOneStep() throws Exception {
         run("taskOneStep.html");
     }
-    @Ignore
-    @Test
-    public void testtopic() throws Exception {
-        run("topic.html");
-    }
+//    @Test
+//    public void testtopic() throws Exception {
+//        run("topic.html");
+//    }
     @Test
     public void testul() throws Exception {
         run("ul.html");
     }
+    @Ignore
     @Test
     public void testyaml() throws Exception {
         run("yaml.html");

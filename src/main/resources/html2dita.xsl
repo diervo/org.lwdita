@@ -3,8 +3,9 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
+                xmlns:x="https://github.com/jelovirt/dita-ot-markdown"
                 xpath-default-namespace="http://www.w3.org/1999/xhtml"
-                exclude-result-prefixes="xs">
+                exclude-result-prefixes="xs x">
 
   <xsl:import href="classpath:///hdita2dita-common.xsl"/>
   <xsl:import href="classpath:///specialize.xsl"/>
@@ -13,10 +14,8 @@
 
   <xsl:template match="/">
     <xsl:variable name="dita" as="element()">
-      <xsl:message>html</xsl:message>
       <xsl:apply-templates select="html"/>
     </xsl:variable>
-    <xsl:message>specialize</xsl:message>
     <xsl:apply-templates select="$dita" mode="dispatch"/>
   </xsl:template>
 
@@ -42,18 +41,20 @@
       <xsl:attribute name="ditaarch:DITAArchVersion">1.3</xsl:attribute>
       <xsl:apply-templates select="ancestor::*/@xml:lang"/>
       <xsl:apply-templates select="@*"/>
+      <xsl:variable name="h" select="(h1, h2, h3, h4, h5, h6)[1]" as="element()?"/>
       <xsl:choose>
         <xsl:when test="@id">
           <xsl:apply-templates select="@id"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:attribute name="id" select="translate(normalize-space(lower-case(h1)), ' ', '-')"/>
+          <xsl:sequence select="x:get-id(.)"/>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="h1"/>
+      <xsl:apply-templates select="$h"/>
       <body class="- topic/body ">
-        <xsl:apply-templates select="* except h1"/>
+        <xsl:apply-templates select="* except ($h, article)"/>
       </body>
+      <xsl:apply-templates select="article"/>
     </xsl:element>
   </xsl:template>
 
